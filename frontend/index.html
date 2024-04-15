@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prime Number Generator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1 id="head">Generate Prime Numbers</h1>
+    <form id="primeForm">
+        <label for="start">Start:</label>
+        <input type="number" id="start" name="start" required>
+        <br>
+        <label for="end">End:</label>
+        <input type="number" id="end" name="end" required>
+        <br>
+        <label for="strategy">Strategy:</label>
+        <select id="strategy" name="strategy">
+            <option value="basic">Basic Strategy</option>
+            <option value="sieve">Sieve of Eratosthenes</option>
+            <option value="miller-rabin">Miller-Rabin Primality Test</option>
+        </select>
+        <br>
+        <button onclick="getData()" type="button">Generate</button>
+    </form>
+    <div id="result"></div>
+
+
+    <script>
+       async function getData(){
+            const start = document.getElementById("start").value;
+            const end = document.getElementById("end").value;
+            const strategy = document.getElementById("strategy").value;
+
+            const response = await fetch("http://localhost:3000/generate?start="+start+"&end="+end+"&strategy="+strategy);
+
+            const data = await response.text();
+            
+            document.getElementById("result").innerHTML = data;
+        }
+    </script>
+</body>
+</html>
